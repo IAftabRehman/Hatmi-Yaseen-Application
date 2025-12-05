@@ -2,6 +2,7 @@
 
 **HatmiYaseen** is a smart Flutter-based family tracker app designed to help families track weekly Surah Yaseen recitations.
 It allows members from different cities to submit their recitation counts, see real-time total completion, and get notified every Thursday — all in one connected platform.
+
 ---
 
 ## 🚀 Features
