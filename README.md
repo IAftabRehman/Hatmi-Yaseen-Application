@@ -7,13 +7,13 @@ It allows members from different cities to submit their recitation counts, see r
 
 ## 🚀 Features
 
-✅ **Weekly Reminder** — Auto notification every Thursday evening to remind family members to submit recitations.
-✅ **Individual Count Submission** — Each member can submit how many times they recited Yaseen.
-✅ **Real-Time Total** — Shows combined count of all family members toward the 44 recitations goal.
-✅ **Completion Tracking** — Marks when weekly target of 44 recitations is completed.
-✅ **History & Streaks** — Track weekly contributions and ongoing streaks for each member.
-✅ **Multi-City Compatibility** — Works for family members across different cities or countries.
-✅ **Optional Islamic Touch** — Audio recitations or Surah text (optional future feature).
+✅ **Weekly Reminder** — Auto notification every Thursday evening to remind family members to submit recitations.  
+✅ **Individual Count Submission** — Each member can submit how many times they recited Yaseen.  
+✅ **Real-Time Total** — Shows combined count of all family members toward the 44 recitations goal.  
+✅ **Completion Tracking** — Marks when weekly target of 44 recitations is completed.  
+✅ **History & Streaks** — Track weekly contributions and ongoing streaks for each member.  
+✅ **Multi-City Compatibility** — Works for family members across different cities or countries.  
+✅ **Optional Islamic Touch** — Audio recitations or Surah text (optional future feature).  
 
 ---
 
