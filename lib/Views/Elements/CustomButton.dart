@@ -52,6 +52,7 @@ class MyButton extends StatelessWidget {
       ],
       child: Bounce(
         duration: const Duration(milliseconds: 100),
+        onTap: onPressed,
         child: Container(
           margin: margin,
           padding: padding,
