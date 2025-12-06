@@ -3,7 +3,6 @@ import 'package:hatmiyaseen/Configuration/AppColors.dart';
 import 'package:hatmiyaseen/Views/Elements/CustomButton.dart';
 import 'package:hatmiyaseen/Views/Elements/CustomContainer.dart';
 import 'package:hatmiyaseen/Views/Elements/CustomText.dart';
-import 'package:hatmiyaseen/Views/Presentation/PDFScreen.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -37,191 +36,183 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final h = MediaQuery
-        .of(context)
-        .size
-        .height;
+    final h = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.backgroundColor,
-        title: MyText(text: "Hello"),
-      ),
       body: MyContainer(
         color: AppColors.backgroundColor,
         width: double.infinity,
         height: double.infinity,
         padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              MyText(
-                text: "AOA Aftab",
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            MyText(
+              text: "AOA Aftab",
+              fontWeight: FontWeight.bold,
+              size: 25,
+              color: AppColors.textColor,
+            ),
+
+            SizedBox(height: h * 0.05),
+
+            CircularPercentIndicator(
+              radius: 80.0,
+              lineWidth: 15.0,
+              percent: progress,
+              center: MyText(
+                text: "${selectedButtonIndex ?? 0} / 41",
                 fontWeight: FontWeight.bold,
                 size: 25,
                 color: AppColors.textColor,
               ),
+              progressColor: getProgressColor(selectedButtonIndex ?? 0),
+              backgroundColor: Colors.white,
+              circularStrokeCap: CircularStrokeCap.round,
+              animation: true,
+              animationDuration: 1500,
+            ),
 
-              SizedBox(height: h * 0.05),
+            SizedBox(height: h * 0.05),
 
-              CircularPercentIndicator(
-                radius: 80.0,
-                lineWidth: 15.0,
-                percent: progress,
-                center: MyText(
-                  text: "${selectedButtonIndex ?? 0} / 41",
-                  fontWeight: FontWeight.bold,
-                  size: 25,
-                  color: AppColors.textColor,
-                ),
-                progressColor:  getProgressColor(selectedButtonIndex ?? 0),
-                backgroundColor: Colors.white,
-                circularStrokeCap: CircularStrokeCap.round,
-                animation: true,
-                animationDuration: 1500,
+            GridView(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                mainAxisSpacing: 10,
+                crossAxisSpacing: 10,
+                childAspectRatio: 1.8,
+              ),
+              children: [
+                buildCircleButton(1),
+                buildCircleButton(2),
+                buildCircleButton(3),
+                buildCircleButton(4),
+                buildCircleButton(5),
+                buildCircleButton(6),
+              ],
+            ),
+
+            SizedBox(height: h * 0.02),
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              MyText(
+                text: "کرو",
+                size: 20,
+                fontWeight: FontWeight.bold,
+                color: AppColors.textColor,
               ),
 
-              SizedBox(height: h * 0.05),
+              Expanded(
+                child: MyButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        int? customSelected;
 
-              GridView(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  mainAxisSpacing: 10,
-                  crossAxisSpacing: 10,
-                  childAspectRatio: 1.8,
-                ),
-                children: [
-                  buildCircleButton(1),
-                  buildCircleButton(2),
-                  buildCircleButton(3),
-                  buildCircleButton(4),
-                  buildCircleButton(5),
-                  buildCircleButton(6),
-                ],
-              ),
+                        return StatefulBuilder(
+                          builder: (context, setStateDialog) {
+                            return AlertDialog(
+                              backgroundColor: AppColors.primaryColor,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15),
+                              ),
 
-              SizedBox(height: h * 0.02),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  MyText(
-                    text: "کرو",
-                    size: 20,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.textColor,
-                  ),
-                  Expanded(
-                    child: MyButton(
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            int? customSelected;
-                            return StatefulBuilder(
-                              builder: (context, setStateDialog) {
-                                return AlertDialog(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15),
+                              title: Center(
+                                child: Text(
+                                  "آپ نے کتنی بار پڑھ لیا ہے؟",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
                                   ),
-                                  title: Text(
-                                    "Select Your Count",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold),
-                                  ),
+                                ),
+                              ),
 
-                                  content: DropdownButton<int>(
-                                    isExpanded: true,
-                                    hint: Text("Select number (7 to 41)"),
-                                    value: customSelected,
-                                    items: List.generate(35, (index) {
-                                      int number = index + 7;
-                                      return DropdownMenuItem(
-                                        value: number,
-                                        child: Text(number.toString()),
-                                      );
-                                    }),
-                                    onChanged: (value) {
-                                      setStateDialog(() {
-                                        customSelected = value;
+                              content: DropdownButton<int>(
+                                isExpanded: true,
+                                hint: MyText(
+                                  text: "Select number (7 to 41)",
+                                  size: 18,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                value: customSelected,
+                                items: List.generate(35, (index) {
+                                  int number = index + 7;
+                                  return DropdownMenuItem(
+                                    value: number,
+                                    child: Text(number.toString()),
+                                  );
+                                }),
+                                onChanged: (value) {
+                                  setStateDialog(() {
+                                    customSelected = value;
+                                  });
+                                },
+                              ),
+
+                              actions: [
+                                TextButton(
+                                  onPressed: () => Navigator.pop(context),
+                                  child: Text("Cancel"),
+                                ),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    if (customSelected != null) {
+                                      setState(() {
+                                        selectedButtonIndex = customSelected!;
                                       });
-                                    },
-                                  ),
-
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () => Navigator.pop(context),
-                                      child: Text("Cancel"),
-                                    ),
-                                    ElevatedButton(
-                                      onPressed: () {
-                                        if (customSelected != null) {
-                                          // Update main screen & progress bar
-                                          setState(() {
-                                            selectedButtonIndex =
-                                                customSelected;
-                                          });
-                                        }
-                                        Navigator.pop(context);
-                                      },
-                                      child: Text("Done"),
-                                    ),
-                                  ],
-                                );
-                              },
+                                    }
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text("Done"),
+                                ),
+                              ],
                             );
                           },
                         );
                       },
-                      btnLabel: "Click",
-                      textStyle: TextStyle(
-                        fontSize: 18,
-                        decoration: TextDecoration.underline,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blue,
-                      ),
-                    ),
-                  ),
-                  MyText(
-                    text: "اگر اپ نے 6 سے زیادہ بار پڑلیا ہیں تو",
-                    size: 20,
+                    );
+                  },
+                  btnLabel: "Click",
+                  textStyle: TextStyle(
+                    fontSize: 18,
+                    decoration: TextDecoration.underline,
                     fontWeight: FontWeight.bold,
-                    color: AppColors.textColor,
+                    color: Colors.blue,
                   ),
-                ],
+                ),
               ),
 
-              SizedBox(height: h * 0.02),
-
-              // Done Button
-              MyButton(
-                onPressed: () {},
-                btnLabel: "Done",
-                textColor: Colors.white,
-                color: Colors.red,
-                fontSize: 25,
-              ),
-
-              SizedBox(height: h * 0.02),
-
-              // PDF Button
-              MyButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => PDFScreen()),
-                  );
-                },
-                padding: EdgeInsets.all(10),
-                btnLabel: "Read Surat Yaseen",
-                textColor: Colors.white,
-                color: AppColors.primaryColor,
-                fontSize: 25,
+              MyText(
+                text: "اگر آپ نے 6 سے زیادہ بار پڑھ لیا ہے تو",
+                size: 20,
+                fontWeight: FontWeight.bold,
+                color: AppColors.textColor,
               ),
             ],
           ),
+
+          SizedBox(height: h * 0.04),
+
+            ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red,
+                shape: CircleBorder(),
+                padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 50),
+              ),
+              child: MyText(
+                text: "Done",
+                size: 25,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+          ],
         ),
       ),
     );
